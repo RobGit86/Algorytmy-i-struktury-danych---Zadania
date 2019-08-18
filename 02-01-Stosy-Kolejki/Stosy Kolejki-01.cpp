@@ -26,16 +26,10 @@ int main() {
 
 void push(ele* &stos, int x) {
 
-    if(stos == NULL) {
-        stos = new ele;
-        stos->dana = x;
-        stos->nast = NULL;
-    } else {
-        ele* nowy = new ele;
-        nowy->dana = x;
-        nowy->nast = stos;
-        stos = nowy;
-    }
+    ele* nowy = new ele;
+    nowy->dana = x;
+    nowy->nast = stos;
+    stos = nowy;
 }
 
 int pop(ele* &stos) {
