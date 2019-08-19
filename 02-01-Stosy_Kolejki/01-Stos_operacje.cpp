@@ -13,7 +13,7 @@ int pop(ele* &stos);
 int topEl(ele* stos);
 bool isEmpty(ele* stos);
 
-void initMenu(ele* &stos);
+void initMenu(ele* stos);
 void showStack(ele* stos);
 
 int main() {
@@ -63,7 +63,7 @@ bool isEmpty(ele* stos) {
         return false;
 }
 
-void initMenu(ele* &stos) {
+void initMenu(ele* stos) {
 
     char choice;
 
