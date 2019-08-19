@@ -1,4 +1,5 @@
 #include<iostream>
+#include<climits>
 
 using namespace std;
 
@@ -36,7 +37,7 @@ int pop(ele* &stos) {
 
     if(stos == NULL) {
         cout << "STOS JEST PUSTY - OPERACJA NIEDOZWOLONA";
-        return 1;
+        return INT_MIN;
     } else {
         ele* tmp = stos->nast;
         int tmp_dana = stos->dana;
