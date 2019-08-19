@@ -1,8 +1,5 @@
 #include<iostream>
-<<<<<<< HEAD
-=======
 #include<climits>
->>>>>>> master
 
 using namespace std;
 
@@ -36,11 +33,7 @@ void add(ele* &poczkol, ele* &konkol, int x) {
 int next(ele* &poczkol, ele* &konkol) {
 
     if(poczkol == NULL && konkol == NULL)
-<<<<<<< HEAD
-        return 1;
-=======
         return INT_MIN;
->>>>>>> master
     else {
         ele* tmp = poczkol->nast;
         int result = poczkol->dana;
@@ -49,14 +42,19 @@ int next(ele* &poczkol, ele* &konkol) {
         return result;
     }
 }
-<<<<<<< HEAD
-=======
 
 int firstEl(ele* poczkol) {
 
-    if(poczkol == NULL && konkol == NULL)
+    if(poczkol == NULL)
         return INT_MIN;
     else
         return poczkol->dana;
 }
->>>>>>> master
+
+bool isEmpty(ele* poczkol) {
+
+    if(poczkol == NULL)
+        return true;
+    else
+        return false;
+}
