@@ -8,34 +8,54 @@ struct ele {
     ele* nast;
 };
 
+void stackReverseStack(ele* &stos);
+void stackReverseQueue(ele* &stos);
+
 void push(ele* &stos, int x);
 int pop(ele* &stos);
 int topEl(ele* stos);
-bool isEmpty(ele* stos);
+bool isEmptyStack(ele* stos);
 
-void
+void add(ele* &poczkol, ele* &konkol, int x);
+int next(ele* &poczkol, ele* &konkol);
+int firstEl(ele* poczkol);
+bool isEmptyQueue(ele* poczkol);
 
 void initMenu(ele* stos);
 void showStack(ele* stos);
 
+
+
 int main() {
 
-    ele* stos1 = NULL;
-    ele* stos2 = NULL;
+    ele* stos = NULL;
 
     initMenu(stos);
 
     return 0;
 }
 
-void stackSort(ele* stos1, ele* stos2) {
+void stackReverseStack(ele* &stos) {
 
+    ele* stos2 = NULL;
 
+    while(!isEmptyStack(stos))
+        push(stos2, pop(stos));
 
-
+    stos = stos2;
 }
 
+void stackReverseQueue(ele* &stos) {
 
+    ele* poczkol = NULL;
+    ele* konkol = NULL;
+
+    while(!isEmptyStack(stos))
+        add(poczkol, konkol, pop(stos));
+
+    while(!isEmptyQueue(poczkol))
+        push(stos, next(poczkol, konkol));
+}
 
 void push(ele* &stos, int x) {
 
@@ -67,9 +87,53 @@ int topEl(ele* stos) {
         return stos->dana;
 }
 
-bool isEmpty(ele* stos) {
+bool isEmptyStack(ele* stos) {
 
     if(stos == NULL)
+        return true;
+    else
+        return false;
+}
+
+void add(ele* &poczkol, ele* &konkol, int x) {
+
+    ele* node = new ele;
+    node->dana = x;
+    node->nast = NULL;
+
+    if(poczkol == NULL && konkol == NULL)
+        poczkol = konkol = node;
+    else {
+        konkol->nast = node;
+        konkol = node;
+    }
+}
+
+int next(ele* &poczkol, ele* &konkol) {
+
+    if(poczkol == NULL && konkol == NULL)
+        return INT_MIN;
+    else {
+        ele* tmp = poczkol->nast;
+        int result = poczkol->dana;
+        delete poczkol;
+        poczkol = tmp;
+        return result;
+    }
+}
+
+int firstEl(ele* poczkol) {
+
+    if(poczkol == NULL) {
+        cout << "KOLEJKA JEST PUSTA - NIEDOZWOLONA OPERACJA ";
+        return INT_MIN;
+    } else
+        return poczkol->dana;
+}
+
+bool isEmptyQueue(ele* poczkol) {
+
+    if(poczkol == NULL)
         return true;
     else
         return false;
@@ -86,7 +150,9 @@ void initMenu(ele* stos) {
         cout << "3. Zwróć element bez jego usuwania\n";
         cout << "4. Sprawdź czy stos jest pusty\n";
         cout << "5. Wyświetl stos\n";
-        cout << "6. Wyjdź\n\n";
+        cout << "6. ODWRÓĆ STOSEM\n";
+        cout << "7. ODWRÓĆ KOLEJKĄ\n";
+        cout << "8. Wyjdź\n\n";
         cout << "OPCJA: ";
 
         cin >> choice;
@@ -103,20 +169,26 @@ void initMenu(ele* stos) {
                       break;
             case '3': cout << "Element na wierzchu: " << topEl(stos) << endl << endl;
                       break;
-            case '4': if(isEmpty(stos))
+            case '4': if(isEmptyStack(stos))
                         cout << "STOS JEST PUSTY" << endl << endl;
                       else
                         cout << "STOS NIE JEST PUSTY" << endl << endl;
                       break;
             case '5': showStack(stos);
                       break;
-            case '6': cout << "DO WIDZENIA!";
+            case '6': stackReverseStack(stos);
+                      cout << "ODWRÓCONO\n\n";
+                      break;
+            case '7': stackReverseQueue(stos);
+                      cout << "ODWRÓCONO\n\n";
+                      break;
+            case '8': cout << "DO WIDZENIA!";
                       break;
 
             default: cout << "ZŁA OPCJA";
                      break;
         }
-    } while(choice !='6');
+    } while(choice !='8');
 }
 
 void showStack(ele* stos) {
@@ -132,5 +204,4 @@ void showStack(ele* stos) {
         cout << endl << endl;
     }
 }
-
 
